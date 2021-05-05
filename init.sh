@@ -27,6 +27,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 cargo install bat
 cargo install broot
+cargo install --git https://github.com/dandavison/delta
 cargo install clog ??? FIXME
 cargo install dust ??? FIXME
 cargo install watchexec
@@ -39,9 +40,9 @@ cargo install fd-find
 echo "alias fd=fdfind" >> ~/.zshrc
 
 cargo install starship
-# FIXME
 echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
 
+# FIXME project does not compile, missing regex
 cargo install --git https://github.com/quentinproust/rust-teamwork-cli
 echo "alias tw=teamwork-cli" >> ~/.zshrc
 
@@ -112,12 +113,24 @@ root = /
 options = "metadata"
 EOT
 
+
+# =========================================================================================================
+# Install sql server command line
+# https://docs.microsoft.com/fr-fr/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu
+# =========================================================================================================
+
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+sudo apt-get update
+sudo apt-get install mssql-tools unixodbc-dev
+
 # =========================================================================================================
 # Aliases
 # =========================================================================================================
 echo "alias alt=altima-devops-cli" >> ~/.zshrc
 echo "alias switch-java=\"sudo update-alternatives --config java\"" >> ~/.zshrc
 echo "alias ansible-venv=\". ~/environments/ansible2.9-venv/bin/activate\"" >> ~/.zshrc
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.zshrc
 
 # =========================================================================================================
 # Env
