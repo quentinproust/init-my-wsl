@@ -211,7 +211,7 @@ sudo apt-get install -y adoptopenjdk-8-hotspot adoptopenjdk-11-hotspot adoptopen
 # Nodejs
 # =========================================================================================================
 
-wget -qO- https://deb.nodesource.com/setup_14.x | sudo -E bash -
+wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # =========================================================================================================
