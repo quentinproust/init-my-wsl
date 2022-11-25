@@ -25,30 +25,29 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . $HOME/.cargo/env
 
-cargo install bat
+sudo apt install bat
 cargo install broot
-cargo install --git https://github.com/dandavison/delta
+cargo install git-delta
 cargo install clog ??? FIXME
 cargo install dust ??? FIXME
-cargo install watchexec
+cargo install watchexec-cli
+cargo install fzf
 
-cargo install exa
+sudo apt-get install exa
 echo "alias ll='exa -la'" >> ~/.zshrc
 echo "alias ls='exa'" >> ~/.zshrc
 
 cargo install fd-find
 echo "alias fd=fdfind" >> ~/.zshrc
 
-cargo install starship
+curl -sS https://starship.rs/install.sh | sh
 echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
-
-# FIXME project does not compile, missing regex
-cargo install --git https://github.com/quentinproust/rust-teamwork-cli
-echo "alias tw=teamwork-cli" >> ~/.zshrc
 
 # =========================================================================================================
 # python3, pip3
 # =========================================================================================================
+# See miniconda for an alternative
+
 # this directory will be used to store python venv
 mkdir ~/environments
 
@@ -61,6 +60,7 @@ python3 -m venv ~/environments/ansible-venv
 # Install : docker, docker-compose
 # =========================================================================================================
 # source : https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
+# source : https://docs.docker.com/engine/install/debian/#set-up-the-repository
 
 # Install Docker's package dependencies.
 sudo apt-get install -y \
@@ -201,11 +201,11 @@ EOT
 ln -s /c/Users/qproust/.m2 ~/.m2
 
 # install openjdk
-wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
-sudo apt-get update -y
-sudo apt-get install -y adoptopenjdk-8-hotspot adoptopenjdk-11-hotspot adoptopenjdk-15-hotspot
-
+ wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz
+ mkdir ~/jvm
+ mv OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz ~/jvm
+ cd ~/jvm && tar -xvf OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz
+ export PATH="$HOME/jvm/jdk-17.0.5+8/bin:$PATH"
 
 # =========================================================================================================
 # Nodejs
