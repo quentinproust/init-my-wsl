@@ -34,8 +34,10 @@ cargo install watchexec-cli
 cargo install fzf
 
 sudo apt-get install exa
-echo "alias ll='exa -la'" >> ~/.zshrc
-echo "alias ls='exa'" >> ~/.zshrc
+cargo install lsd
+echo "alias lll='exa -la'" >> ~/.zshrc
+echo "alias ls='lsd'" >> ~/.zshrc
+echo "alias ll='lsd -l'" >> ~/.zshrc
 
 cargo install fd-find
 echo "alias fd=fdfind" >> ~/.zshrc
