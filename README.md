@@ -1,5 +1,11 @@
 # init-my-wsl
 
+## backup your wsl
+
+```
+wsl --export Debian pve-checkpoint.tar
+```
+
 ## when you forgot your password
 
 in CMD, change your default user to root (debian or ubuntu) : 
