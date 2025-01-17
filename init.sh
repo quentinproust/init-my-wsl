@@ -45,6 +45,12 @@ echo "alias fd=fdfind" >> ~/.zshrc
 curl -sS https://starship.rs/install.sh | sh
 echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
 
+# disable these lines in zshrc :
+# autoload -Uz promptinit
+# promptinit
+# prompt adam1
+
+
 # =========================================================================================================
 # python3, pip3
 # =========================================================================================================
