@@ -6,7 +6,7 @@ set -eux
 # =========================================================================================================
 sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo apt-get install -y build-essential curl file git software-properties-common pkg-config libssl-dev
+sudo apt-get install -y build-essential curl file git software-properties-common pkg-config libssl-dev dos2unix
 
 # =========================================================================================================
 # Install : zsh, oh-my-zsh
