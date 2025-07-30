@@ -225,26 +225,9 @@ EOT
 # create an alias for .m2 linking it to windows files
 ln -s /c/Users/qproust/.m2 ~/.m2
 
-# install openjdk
- wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.5%2B8/OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz
- mkdir ~/jvm
- mv OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz ~/jvm
- cd ~/jvm && tar -xvf OpenJDK17U-jdk_x64_linux_hotspot_17.0.5_8.tar.gz
- export PATH="$HOME/jvm/jdk-17.0.5+8/bin:$PATH"
+brew install openjdk@21
 
 # =========================================================================================================
 # Nodejs
 # =========================================================================================================
-
-wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# =========================================================================================================
-# Notes and not so sure if needed ?
-# =========================================================================================================
-
-# nvm ??
-# this is present in ~/.bashrc and ~/.zshrc
-#   export NVM_DIR="$HOME/.nvm"
-#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+brew install nvm
