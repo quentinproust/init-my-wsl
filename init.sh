@@ -9,41 +9,89 @@ sudo apt-get upgrade -y
 sudo apt-get install -y build-essential curl file git software-properties-common pkg-config libssl-dev dos2unix
 
 # =========================================================================================================
-# Install : zsh, oh-my-zsh
+# Install homebrew
 # =========================================================================================================
-sudo apt-get install -y zsh
-# restart your console
-chsh -s $(which zsh)
-# restart your console
-echo $SHELL
+#https://brew.sh/
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo >> /home/qproust/.bashrc
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/qproust/.bashrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# =========================================================================================================
-# Install : rust & companions :)
-# =========================================================================================================
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-. $HOME/.cargo/env
+# Install packages
+brew install eza
+bat
+fd
+fzf
+graphviz
+jq
+lsd
+miniserve
+starship
+structurizr-cli
+watchexec
+zsh
+atuin
 
-sudo apt install bat
-cargo install broot
-cargo install git-delta
-cargo install clog ??? FIXME
-cargo install dust ??? FIXME
-cargo install watchexec-cli
-cargo install fzf
+# run zsh for the first time to init it
+zsh
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/qproust/.zshrc
 
-sudo apt-get install exa
-cargo install lsd
+# configure atuin
+echo 'eval "$(atuin init zsh)"' >> ~/.zshrc
+
+# configure starship
+eval "$(starship init zsh)" >> ~/.zshrc
+
+# add alias
 echo "alias lll='exa -la'" >> ~/.zshrc
 echo "alias ls='lsd'" >> ~/.zshrc
 echo "alias ll='lsd -l'" >> ~/.zshrc
 
-cargo install fd-find
-echo "alias fd=fdfind" >> ~/.zshrc
+# add zsh to /etc/shells
+command -v zsh | sudo tee -a /etc/shells
+chsh -s $(which zsh)
+# restart your console
+echo $SHELL
 
-curl -sS https://starship.rs/install.sh | sh
-echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
+starship preset catppuccin-powerline -o ~/.config/starship.toml
+
+# =========================================================================================================
+# Install : zsh, oh-my-zsh
+# =========================================================================================================
+#sudo apt-get install -y zsh
+# restart your console
+#chsh -s $(which zsh)
+# restart your console
+#echo $SHELL
+
+#sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# =========================================================================================================
+# Install : rust & companions :)
+# =========================================================================================================
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#. $HOME/.cargo/env
+
+#sudo apt install bat
+#cargo install broot
+#cargo install git-delta
+#cargo install clog ??? FIXME
+#cargo install dust ??? FIXME
+#cargo install watchexec-cli
+#cargo install fzf
+
+#sudo apt-get install exa
+#cargo install lsd
+#echo "alias lll='exa -la'" >> ~/.zshrc
+#echo "alias ls='lsd'" >> ~/.zshrc
+#echo "alias ll='lsd -l'" >> ~/.zshrc
+
+#cargo install fd-find
+#echo "alias fd=fdfind" >> ~/.zshrc
+
+#curl -sS https://starship.rs/install.sh | sh
+#echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
 
 # disable these lines in zshrc :
 # autoload -Uz promptinit
@@ -60,7 +108,7 @@ echo "eval \"$(starship init zsh)\"" >> ~/.zshrc
 mkdir ~/environments
 
 # Install Python 3 and PIP.
-sudo apt-get install -y python3.8 python3-pip python3-venv
+#sudo apt-get install -y python3.8 python3-pip python3-venv
 
 python3 -m venv ~/environments/ansible-venv
 
