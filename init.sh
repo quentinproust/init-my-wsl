@@ -115,60 +115,29 @@ python3 -m venv ~/environments/ansible-venv
 # =========================================================================================================
 # Install : docker, docker-compose
 # =========================================================================================================
-# source : https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
-# source : https://docs.docker.com/engine/install/debian/#set-up-the-repository
+#https://docs.docker.com/engine/install/ubuntu/
 
-# Install Docker's package dependencies.
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Download and add Docker's official public PGP key.
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
 
-# Verify the fingerprint.
-sudo apt-key fingerprint 0EBFCD88
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Add the `stable` channel's Docker upstream repository.
-#
-# If you want to live on the edge, you can change "stable" below to "test" or
-# "nightly". I highly recommend sticking with stable!
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-# Update the apt package list (for the new apt repo).
-sudo apt-get update -y
-
-# Install the latest version of Docker CE.
-sudo apt-get install -y docker-ce
-
-# Allow your user to access the Docker CLI without needing root access.
+sudo groupadd docker
 sudo usermod -aG docker $USER
 
-# Install Docker Compose into your user's home directory.
-pip3 install --user docker-compose
-
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.zshrc
-
-# You should get a bunch of output about your Docker daemon.
-# If you get a permission denied error, close + open your terminal and try again.
-docker info
-
-# You should get back your Docker Compose version.
-docker-compose --version
-
-# change windows drives mount to / instead of /mnt
-sudo cat <<EOT >> /etc/wsl.conf
-[automount]
-root = /
-options = "metadata"
-EOT
-
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 
 # =========================================================================================================
 # Install sql server command line
