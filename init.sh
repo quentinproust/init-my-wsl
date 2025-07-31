@@ -139,6 +139,18 @@ sudo usermod -aG docker $USER
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 
+
+# Expose docker to tcp://127.0.0.1:2375
+# /etc/systemd/system/docker.service.d/override.conf
+
+#[Service]
+#ExecStart=
+#ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375 --containerd=/run/containerd/containerd.sock
+
+# In Windows, install docker cli and set DOCKER_HOST
+# winget install --id=Docker.DockerCLI  -e
+# setx DOCKER_HOST=localhost:2375
+
 # =========================================================================================================
 # Install sql server command line
 # https://docs.microsoft.com/fr-fr/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu
